@@ -34,7 +34,7 @@ pipeline {
                                                       ///zip file and i exclude .git and .zip file within that files
                 sh """
                     ls -al 
-                    zip -r catalogue.zip ./* -x ".git" - x "*.zip"  
+                    zip -r -q catalogue.zip ./* -x ".git" - x "*.zip"  
                     ls -ltr                          
                 """
                 }
