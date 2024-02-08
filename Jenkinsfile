@@ -47,7 +47,7 @@ pipeline {
                             protocol: 'http',
                             nexusUrl: "${nexusURL}",
                             groupId: 'com.roboshop',
-                            version: "${packageVersion}",
+                            version: "${packageVersion}",         
                             repository: 'catalogue',
                             credentialsId: 'nexus-auth',
                             artifacts: [
@@ -62,3 +62,8 @@ pipeline {
     }
 }
 }
+
+
+
+////after downloadin artifacts into nexus we gwet pom.xmlfile....the pom file contains group.id,artifat id ,version,type
+//////till artifact creation that we called as CI
