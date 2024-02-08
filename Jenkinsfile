@@ -62,9 +62,13 @@ pipeline {
     }
     stage('deploy') {
             steps {
-                echo "deploying"
+               build jod: "catalogue-deploy-1", wait: true, parameters:[
+                string(name: 'version' , value: "${packageVersion}")
+                string(name: 'environment' , value: "dev")
+               ]
             }
     }
+
 }
 }
 
