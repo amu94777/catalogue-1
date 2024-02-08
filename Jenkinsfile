@@ -60,6 +60,11 @@ pipeline {
             }
 
     }
+    stage('deploy') {
+            steps {
+                echo "deploying"
+            }
+    }
 }
 }
 
