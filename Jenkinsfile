@@ -29,6 +29,13 @@ pipeline {
                 """
                 }
             }
+            stage('build') {
+            steps {
+                sh """
+                    ls -al
+                """
+                }
+            }
         
     }
 }
