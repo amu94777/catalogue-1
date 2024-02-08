@@ -11,6 +11,7 @@ pipeline {
             }
      environment { 
         packageVersion = ''
+        nexusURL = '172.31.5.103:8081'
     }
     stages {
         stage('get the version') {
@@ -32,13 +33,32 @@ pipeline {
             stage('build') {                      ////here we have to zip the files thst is schema,package.jsos
             steps {                                 /// server.js//zip the file and floders..catalogue.zip is the 
                                                       ///zip file and i exclude .git and .zip file within that files
-                sh """
+                sh """                                   
                     ls -al 
                     zip -r -q catalogue.zip ./* -x ".git" - x "*.zip"  
                     ls -ltr                          
-                """
-                }
+                """                                         ///-q is used for hide the logs in console
+                }                    
             }
-        
+         stage('publish artifact') {
+            steps {
+                nexusArtifactUploader(                            //publish artifacts here
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: "${nexusURL}",
+                            groupId: 'com.roboshop',
+                            version: "${packageVersion}",
+                            repository: 'catalogue',
+                            credentialsId: 'nexus-auth',
+                            artifacts: [
+                                [artifactId: 'catalogue',
+                                classifier: '',
+                                file: 'catalogue.zip',
+                                type: 'zip']
+                            ]
+     )
+            }
+
     }
+}
 }
