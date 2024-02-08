@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                     def params = [
-                        string(name: 'version' , value: '1.0.0')
+                        string(name: 'version' , value: '1.0.0'),
                          string(name: 'environment' , value: "dev")
                     ]
                 }
