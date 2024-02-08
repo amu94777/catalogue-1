@@ -62,10 +62,14 @@ pipeline {
     }
     stage('deploy') {
             steps {
-               build jod: "catalogue-deploy-1", wait: true, parameters:[
-                string(name: 'version' , value: "${packageVersion}")
-                string(name: 'environment' , value: "dev")
-               ]
+                script {
+                    def params = [
+                        string(name: 'version' , value: "${packageVersion}"),
+                         string(name: 'environment' , value: "dev")
+                    ]
+                }
+               build jod: "catalogue-deploy-1", wait: true, parameters: params
+                
             }
     }
 
