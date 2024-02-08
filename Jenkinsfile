@@ -68,7 +68,7 @@ pipeline {
                          string(name: 'environment' , value: "dev")
                     ]
                 }
-               build jod: "catalogue-deploy-1", wait: true, parameters: params
+               build job: "catalogue-deploy-1", wait: true, parameters: params
                 
             }
     }
