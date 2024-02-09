@@ -32,7 +32,9 @@ pipeline {
                 """
                 }
             }
+    }
 }
+
 //             stage('build') {                      ////here we have to zip the files thst is schema,package.jsos
 //             steps {                                 /// server.js//zip the file and floders..catalogue.zip is the 
 //                                                       ///zip file and i exclude .git and .zip file within that files
