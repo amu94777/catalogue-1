@@ -44,7 +44,7 @@ pipeline {
                 """                                         ///-q is used for hide the logs in console
                 }                    
             }
-    }
+    
 
          stage('publish artifact') {
             steps {
@@ -65,6 +65,7 @@ pipeline {
      )
             }
 
+    }
     }
     
 //     stage('deploy') {
