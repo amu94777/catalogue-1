@@ -11,6 +11,7 @@ pipeline {
             }
      environment { 
         packageVersion = ''
+        nexusURL = '172.31.13.69:8081'
         
     }
     stages {
@@ -45,26 +46,26 @@ pipeline {
             }
     }
 
-//          stage('publish artifact') {
-//             steps {
-//                 nexusArtifactUploader(                            //publish artifacts here
-//                             nexusVersion: 'nexus3',
-//                             protocol: 'http',
-//                             nexusUrl: "${nexusURL}",
-//                             groupId: 'com.roboshop',
-//                             version: "${packageVersion}",         
-//                             repository: 'catalogue',
-//                             credentialsId: 'nexus-auth',
-//                             artifacts: [
-//                                 [artifactId: 'catalogue',
-//                                 classifier: '',
-//                                 file: 'catalogue.zip',
-//                                 type: 'zip']
-//                             ]
-//      )
-//             }
+         stage('publish artifact') {
+            steps {
+                nexusArtifactUploader(                            //publish artifacts here
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: "${nexusURL}",
+                            groupId: 'com.roboshop',
+                            version: "${packageVersion}",         
+                            repository: 'catalogue',
+                            credentialsId: 'nexus-auth',
+                            artifacts: [
+                                [artifactId: 'catalogue',
+                                classifier: '',
+                                file: 'catalogue.zip',
+                                type: 'zip']
+                            ]
+     )
+            }
 
-//     }
+    }
     
 //     stage('deploy') {
 //         steps {
