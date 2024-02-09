@@ -68,19 +68,19 @@ pipeline {
     }
     }
     
-//     stage('deploy') {
-//         steps {
-//             script {
-//                 def params = [
-//                     string(name: 'version', Value: "$packageVersion"),    ///we have to pass version and env parameter to catalogue-deploy-1 pipeline
-//                     string(name: 'environment', Value: "dev")              ////catalogue-1 is upsteram job,it uploads the artifactory to nexus it trigger cataloue-deploy-1 job(downstream job)
-//                 ]
-//                 build job: "catalogue-deploy-1", wait: true, parameters: params
-//             }
-//         }
-//     }
-// }
-// }
+    stage('deploy') {
+        steps {
+            script {
+                def params = [
+                    string(name: 'version', Value: "$packageVersion"),    ///we have to pass version and env parameter to catalogue-deploy-1 pipeline
+                    string(name: 'environment', Value: "dev")              ////catalogue-1 is upsteram job,it uploads the artifactory to nexus it trigger cataloue-deploy-1 job(downstream job)
+                ]
+                build job: "catalogue-deploy-1", wait: true, parameters: params
+            }
+        }
+    }
+
+
  post { 
         always { 
             echo 'I will always say Hello again!'
