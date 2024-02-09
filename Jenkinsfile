@@ -11,7 +11,7 @@ pipeline {
             }
      environment { 
         packageVersion = ''
-        nexusURL = '172.31.5.103:8081'
+        
     }
     stages {
         stage('get the version') {
@@ -23,57 +23,59 @@ pipeline {
                 }
             }
         }
-        stage('install dependencies') {
-            steps {
-                sh """
-                    npm install
-                """
-                }
-            }
-            stage('build') {                      ////here we have to zip the files thst is schema,package.jsos
-            steps {                                 /// server.js//zip the file and floders..catalogue.zip is the 
-                                                      ///zip file and i exclude .git and .zip file within that files
-                sh """                                   
-                    ls -al 
-                    zip -r -q catalogue.zip ./* -x ".git" - x "*.zip"  
-                    ls -ltr                          
-                """                                         ///-q is used for hide the logs in console
-                }                    
-            }
-         stage('publish artifact') {
-            steps {
-                nexusArtifactUploader(                            //publish artifacts here
-                            nexusVersion: 'nexus3',
-                            protocol: 'http',
-                            nexusUrl: "${nexusURL}",
-                            groupId: 'com.roboshop',
-                            version: "${packageVersion}",         
-                            repository: 'catalogue',
-                            credentialsId: 'nexus-auth',
-                            artifacts: [
-                                [artifactId: 'catalogue',
-                                classifier: '',
-                                file: 'catalogue.zip',
-                                type: 'zip']
-                            ]
-     )
-            }
+    } 
+}
+//         stage('install dependencies') {
+//             steps {
+//                 sh """
+//                     npm install
+//                 """
+//                 }
+//             }
+//             stage('build') {                      ////here we have to zip the files thst is schema,package.jsos
+//             steps {                                 /// server.js//zip the file and floders..catalogue.zip is the 
+//                                                       ///zip file and i exclude .git and .zip file within that files
+//                 sh """                                   
+//                     ls -al 
+//                     zip -r -q catalogue.zip ./* -x ".git" - x "*.zip"  
+//                     ls -ltr                          
+//                 """                                         ///-q is used for hide the logs in console
+//                 }                    
+//             }
+//          stage('publish artifact') {
+//             steps {
+//                 nexusArtifactUploader(                            //publish artifacts here
+//                             nexusVersion: 'nexus3',
+//                             protocol: 'http',
+//                             nexusUrl: "${nexusURL}",
+//                             groupId: 'com.roboshop',
+//                             version: "${packageVersion}",         
+//                             repository: 'catalogue',
+//                             credentialsId: 'nexus-auth',
+//                             artifacts: [
+//                                 [artifactId: 'catalogue',
+//                                 classifier: '',
+//                                 file: 'catalogue.zip',
+//                                 type: 'zip']
+//                             ]
+//      )
+//             }
 
-    }
+//     }
     
-    stage('deploy') {
-        steps {
-            script {
-                def params = [
-                    string(name: 'version', Value: "$packageVersion"),    ///we have to pass version and env parameter to catalogue-deploy-1 pipeline
-                    string(name: 'environment', Value: "dev")              ////catalogue-1 is upsteram job,it uploads the artifactory to nexus it trigger cataloue-deploy-1 job(downstream job)
-                ]
-                build job: "catalogue-deploy-1", wait: true, parameters: params
-            }
-        }
-    }
-}
-}
+//     stage('deploy') {
+//         steps {
+//             script {
+//                 def params = [
+//                     string(name: 'version', Value: "$packageVersion"),    ///we have to pass version and env parameter to catalogue-deploy-1 pipeline
+//                     string(name: 'environment', Value: "dev")              ////catalogue-1 is upsteram job,it uploads the artifactory to nexus it trigger cataloue-deploy-1 job(downstream job)
+//                 ]
+//                 build job: "catalogue-deploy-1", wait: true, parameters: params
+//             }
+//         }
+//     }
+// }
+// }
 
 
 
