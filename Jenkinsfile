@@ -33,6 +33,23 @@ pipeline {
                 """
                 }
             }
+            
+        stage('unit testing') {
+            steps {
+                sh """
+                    echo "here we will do unit testing"
+                """
+                }
+            }
+            
+        stage('scanning') {
+            steps {
+                sh """
+                    sonar-scanner 
+                """
+                }
+            }
+
     
         stage('build') {                      ////here we have to zip the files thst is schema,package.jsos
             steps {                                 /// server.js//zip the file and floders..catalogue.zip is the 
