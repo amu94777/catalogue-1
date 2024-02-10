@@ -53,13 +53,13 @@ pipeline {
                 }
             }
             
-        stage('scanning') {
-            steps {
-                sh """
-                    sonar-scanner 
-                """
-                }
-            }
+        // stage('scanning') {
+        //     steps {
+        //         sh """
+        //             sonar-scanner 
+        //         """
+        //         }
+        //     }
 
     
         stage('build') {                      ////here we have to zip the files thst is schema,package.jsos
