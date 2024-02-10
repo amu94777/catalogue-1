@@ -70,7 +70,7 @@ pipeline {
         steps {
             script {
                 def params = [
-                    string(name: 'version', value: "${packageVersion}"),    ///we have to pass version and env parameter to catalogue-deploy-1 pipeline
+                    string(name: 'version', value: "$packageVersion"),    ///we have to pass version and env parameter to catalogue-deploy-1 pipeline
                     string(name: 'environment', value: "dev")              ////catalogue-1 is upsteram job,it uploads the artifactory to nexus it trigger cataloue-deploy-1 job(downstream job)
                 ]
                 build job: "catalogue-deploy-1", wait: true, parameters: params
